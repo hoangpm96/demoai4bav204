@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>authentication — Signup + Verify Email | Wireframe</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f4f4f4;color:#000;padding:32px 24px}
+    .wf-page{max-width:1400px;margin:0 auto}
+    .wf-header{background:#fff;border:2px solid #000;border-radius:6px;padding:16px 20px;margin-bottom:28px}
+    .wf-feature-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#888}
+    .wf-flow-title{font-size:22px;font-weight:700;margin-top:4px}
+    .wf-flow-meta{font-size:12px;color:#888;margin-top:6px}
+    .wf-flow-desc{font-size:13px;color:#444;margin-top:8px;line-height:1.5}
+    .wf-rows{display:flex;flex-direction:column;gap:16px}
+    .wf-row{display:flex;align-items:flex-start;gap:12px}
+    .wf-row-divider{display:flex;align-items:center;gap:8px;font-size:11px;color:#888;margin:4px 0}
+    .wf-row-divider::before,.wf-row-divider::after{content:"";flex:1;height:1px;background:#ccc}
+    .wf-screen{flex:1;min-width:0;max-width:calc(33.333% - 24px)}
+    .wf-step-badge{font-size:10px;font-weight:700;color:#fff;background:#000;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+    .wf-screen-label{text-align:center;font-size:11px;color:#555;margin-top:6px}
+    .wf-arrow{display:flex;align-items:center;padding-top:52px;font-size:22px;color:#000;flex-shrink:0}
+    .wf-screen-frame{border:2px solid #000;border-radius:8px;overflow:hidden;background:#fff}
+    .wf-screen-bar{background:#f0f0f0;border-bottom:1px solid #000;padding:6px 10px;display:flex;align-items:center;gap:5px}
+    .wf-dot{width:8px;height:8px;border-radius:50%;border:1px solid #888;background:#fff;flex-shrink:0}
+    .wf-bar-title{font-size:11px;font-weight:600;flex:1;text-align:center}
+    .wf-screen-content{padding:16px 14px;display:flex;flex-direction:column;gap:10px}
+    .wf-app-brand{text-align:center;font-size:11px;font-weight:700;letter-spacing:.5px;color:#000;padding-bottom:6px;border-bottom:1px solid #f0f0f0}
+    .wf-screen-title{font-size:15px;font-weight:700;text-align:center;margin-bottom:2px}
+    .field{display:flex;flex-direction:column;gap:3px}
+    .field label{font-size:11px;font-weight:600}
+    .field input{border:1px solid #000;border-radius:3px;padding:7px 9px;font-size:12px;width:100%;background:#fff;color:#000}
+    .field input::placeholder{color:#aaa}
+    .input-pw{position:relative}
+    .input-pw input{padding-right:28px;width:100%;border:1px solid #000;border-radius:3px;padding:7px 28px 7px 9px;font-size:12px}
+    .input-pw .eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:13px;color:#555}
+    .pw-check{display:flex;gap:8px;flex-wrap:wrap;font-size:10px}
+    .pw-check .ok{color:#000}
+    .pw-check .fail{color:#888}
+    .btn-primary{display:block;width:100%;padding:9px 12px;background:#000;color:#fff;border:2px solid #000;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;text-align:center}
+    .btn-secondary{display:block;width:100%;padding:9px 12px;background:#fff;color:#000;border:2px solid #000;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;text-align:center}
+    .wf-link{font-size:12px;color:#000;text-decoration:underline;cursor:pointer}
+    .links-row{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}
+    .state-hint{font-size:10px;color:#888;font-style:italic;margin-top:2px}
+    .info-label{font-size:12px;color:#333;line-height:1.5;text-align:center}
+    .hint-text{font-size:11px;color:#888;font-style:italic}
+    .icon-lg{text-align:center;font-size:32px}
+    .result-variants{display:flex;gap:8px}
+    .variant{flex:1;border:1px solid #ccc;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:8px}
+    .variant-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;border-bottom:1px solid #f0f0f0;padding-bottom:4px}
+    .variant-icon{text-align:center;font-size:22px}
+    .variant-text{font-size:11px;line-height:1.4;text-align:center;color:#333}
+    .wf-footer{margin-top:36px;padding-top:12px;border-top:1px solid #ccc;font-size:10px;color:#aaa;display:flex;justify-content:space-between}
+  </style>
+</head>
+<body>
+<div class="wf-page">
+
+  <div class="wf-header">
+    <div class="wf-feature-label">Feature: authentication / Wireframe</div>
+    <div class="wf-flow-title">Signup + Verify Email</div>
+    <div class="wf-flow-meta">3 màn hình &nbsp;·&nbsp; 1 row &nbsp;·&nbsp; Tạo: 2026-06-07 &nbsp;·&nbsp; Nguồn: ascii-screen/</div>
+    <div class="wf-flow-desc">Người học đăng ký tài khoản mới bằng email/password → hệ thống gửi email xác nhận → người học click link để kích hoạt tài khoản.</div>
+  </div>
+
+  <div class="wf-rows">
+
+    <!-- ROW 1: signup → verify-email-sent → verify-email-result -->
+    <div class="wf-row">
+
+      <!-- Screen 1: signup -->
+      <div class="wf-screen">
+        <div class="wf-step-badge">1</div>
+        <div class="wf-screen-frame">
+          <div class="wf-screen-bar">
+            <div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div>
+            <span class="wf-bar-title">Tạo tài khoản mới</span>
+          </div>
+          <div class="wf-screen-content">
+            <div class="wf-app-brand">english-ai-demo</div>
+            <div class="wf-screen-title">Tạo tài khoản mới</div>
+
+            <!-- Email field -->
+            <div class="field">
+              <label>Email</label>
+              <input type="email" placeholder="ban@email.com">
+              <span class="state-hint">Bắt buộc · Validate định dạng email</span>
+            </div>
+
+            <!-- Password field -->
+            <div class="field">
+              <label>Mật khẩu</label>
+              <div class="input-pw">
+                <input type="password" placeholder="">
+                <span class="eye">👁</span>
+              </div>
+              <div class="pw-check">
+                <span class="ok">6-20 ký tự</span>
+                <span class="ok">chữ hoa</span>
+                <span class="fail">ký tự đặc biệt</span>
+              </div>
+            </div>
+
+            <!-- Submit button -->
+            <button class="btn-primary">Đăng ký</button>
+
+            <!-- Back to login -->
+            <div class="links-row">
+              <span style="font-size:12px;">Đã có tài khoản?</span>
+              <a class="wf-link">Đăng nhập</a>
+            </div>
+          </div>
+        </div>
+        <div class="wf-screen-label">signup</div>
+      </div>
+
+      <div class="wf-arrow">→</div>
+
+      <!-- Screen 2: verify-email-sent -->
+      <div class="wf-screen">
+        <div class="wf-step-badge">2</div>
+        <div class="wf-screen-frame">
+          <div class="wf-screen-bar">
+            <div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div>
+            <span class="wf-bar-title">Kiểm tra hộp thư</span>
+          </div>
+          <div class="wf-screen-content">
+            <div class="wf-app-brand">english-ai-demo</div>
+
+            <!-- Icon + title -->
+            <div class="icon-lg">✉</div>
+            <div class="wf-screen-title" style="font-size:13px;">Kiểm tra hộp thư của bạn</div>
+
+            <!-- Email label -->
+            <div class="info-label">
+              Đã gửi email xác nhận tới<br>
+              <strong>ban@email.com</strong>
+            </div>
+
+            <!-- Instruction -->
+            <p class="info-label" style="font-size:11px;">
+              Vui lòng kiểm tra hộp thư để kích hoạt tài khoản.<br>
+              Link có hiệu lực trong <strong>24 giờ</strong>.
+            </p>
+
+            <!-- Resend button -->
+            <button class="btn-secondary">Gửi lại email xác nhận</button>
+            <p class="hint-text" style="text-align:center;">Có thể gửi lại sau 0:54 &nbsp;·&nbsp; Tối đa 5 lần/ngày</p>
+
+            <!-- Back link -->
+            <div class="links-row">
+              <a class="wf-link">Quay lại đăng nhập</a>
+            </div>
+          </div>
+        </div>
+        <div class="wf-screen-label">verify-email-sent</div>
+      </div>
+
+      <div class="wf-arrow">→</div>
+
+      <!-- Screen 3: verify-email-result (2 states) -->
+      <div class="wf-screen">
+        <div class="wf-step-badge">3</div>
+        <div class="wf-screen-frame">
+          <div class="wf-screen-bar">
+            <div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div>
+            <span class="wf-bar-title">Kết quả xác nhận</span>
+          </div>
+          <div class="wf-screen-content">
+            <div class="wf-app-brand">english-ai-demo</div>
+            <p class="hint-text" style="text-align:center;">2 trạng thái tùy token:</p>
+
+            <div class="result-variants">
+              <!-- State: success -->
+              <div class="variant">
+                <div class="variant-label">Thành công</div>
+                <div class="variant-icon">✓</div>
+                <div class="variant-text">Xác nhận email thành công! Vui lòng đăng nhập để tiếp tục.</div>
+                <button class="btn-primary" style="font-size:11px;padding:6px 8px;">Đăng nhập</button>
+              </div>
+              <!-- State: expired/used -->
+              <div class="variant">
+                <div class="variant-label">Hết hạn / Đã dùng</div>
+                <div class="variant-icon">⚠</div>
+                <div class="variant-text">Link đã hết hạn hoặc đã được sử dụng.</div>
+                <button class="btn-secondary" style="font-size:10px;padding:6px 8px;">Gửi lại link xác nhận</button>
+                <div class="links-row"><a class="wf-link" style="font-size:11px;">Quay lại đăng nhập</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-screen-label">verify-email-result</div>
+      </div>
+
+    </div>
+    <!-- END ROW 1 -->
+
+  </div>
+
+  <div class="wf-footer">
+    <span>authentication / signup-verify-email</span>
+    <span>Tạo bởi /wireframe-html · 2026-06-07</span>
+  </div>
+
+</div>
+</body>
+</html>
