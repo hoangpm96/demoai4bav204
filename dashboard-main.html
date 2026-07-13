@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>learning-dashboard — Dashboard tổng quan | Wireframe</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f4f4; color: #000; padding: 32px 24px; }
+    .wf-page { max-width: 1400px; margin: 0 auto; }
+
+    .wf-header { margin-bottom: 28px; border-bottom: 2px solid #000; padding-bottom: 14px; background: #fff; padding: 16px 20px; }
+    .wf-feature-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+    .wf-flow-title { font-size: 22px; font-weight: 700; margin-top: 4px; }
+    .wf-flow-meta { font-size: 12px; color: #888; margin-top: 6px; }
+    .wf-flow-desc { font-size: 13px; color: #444; margin-top: 8px; line-height: 1.5; }
+
+    .wf-rows { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px 16px; }
+
+    .wf-screen { flex: 0 0 auto; }
+    .wf-page[data-device="mobile"]  .wf-screen { width: 375px; }
+    .wf-page[data-device="tablet"]  .wf-screen { width: 768px; }
+    .wf-page[data-device="desktop"] .wf-screen { width: 1024px; max-width: 100%; }
+    .wf-page:not([data-device]) .wf-screen { width: 375px; }
+    .wf-device-tag { display: inline-block; font-size: 10px; color: #555; border: 1px solid #ccc; border-radius: 3px; padding: 1px 6px; margin-bottom: 6px; }
+    .wf-step-badge { font-size: 10px; font-weight: 700; color: #fff; background: #000; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+    .wf-screen-label { text-align: center; font-size: 11px; color: #555; margin-top: 6px; }
+
+    .wf-screen-frame { border: 2px solid #000; border-radius: 8px; overflow: hidden; background: #fff; }
+    .wf-screen-bar { background: #f0f0f0; border-bottom: 1px solid #000; padding: 6px 10px; display: flex; align-items: center; gap: 5px; }
+    .wf-dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid #888; background: #fff; flex-shrink: 0; }
+    .wf-bar-title { font-size: 11px; font-weight: 600; flex: 1; text-align: center; }
+    .wf-topbar-user { font-size: 11px; color: #555; }
+    .wf-screen-content { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+
+    .wf-h1 { font-size: 18px; font-weight: 700; }
+    .wf-section-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 6px; }
+    .wf-section-title { font-size: 13px; font-weight: 700; }
+    .wf-link { font-size: 12px; color: #000; text-decoration: underline; cursor: pointer; }
+
+    /* stat card grid */
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .stat-card { border: 1px solid #000; border-radius: 6px; padding: 14px; }
+    .stat-card .lbl { font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: .5px; }
+    .stat-card .big { font-size: 22px; font-weight: 700; margin: 4px 0; }
+    .stat-card .sub { font-size: 11px; color: #888; }
+    .clickable { cursor: pointer; }
+
+    /* course list rows */
+    .course-row { border: 1px solid #ccc; border-radius: 6px; padding: 12px 14px; display: flex; align-items: center; gap: 14px; }
+    .course-row .cname { font-weight: 700; font-size: 13px; flex: 0 0 200px; }
+    .progress { flex: 1; display: flex; align-items: center; gap: 8px; }
+    .bar { flex: 1; height: 8px; border: 1px solid #000; border-radius: 4px; overflow: hidden; background: #fff; }
+    .bar > span { display: block; height: 100%; background: #000; }
+    .pct { font-size: 12px; font-weight: 600; width: 34px; text-align: right; }
+    .btn-secondary { padding: 6px 12px; background: #fff; color: #000; border: 2px solid #000; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn-primary { padding: 9px 16px; background: #000; color: #fff; border: 2px solid #000; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; }
+
+    .suggest { border: 1px dashed #888; border-radius: 6px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+
+    /* empty state */
+    .empty { text-align: center; padding: 48px 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .img-ph { width: 96px; height: 72px; border: 1px dashed #888; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #888; background: #f8f8f8; }
+    .empty h2 { font-size: 16px; } .empty p { font-size: 13px; color: #555; }
+
+    /* streak */
+    .streak-row { display: flex; gap: 32px; font-size: 13px; }
+    .cal { border-collapse: collapse; }
+    .cal td, .cal th { border: 1px solid #ccc; width: 32px; height: 28px; text-align: center; font-size: 11px; }
+    .cal .done { background: #000; color: #fff; }
+    .badges { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; }
+    .badge .on::before { content: "(*) "; font-weight: 700; }
+    .badge .off { color: #888; }
+    .badge .off::before { content: "( ) "; }
+    .back-nav { font-size: 12px; text-decoration: underline; cursor: pointer; }
+
+    .wf-footer { margin-top: 36px; padding-top: 12px; border-top: 1px solid #ccc; font-size: 10px; color: #aaa; display: flex; justify-content: space-between; }
+
+    .wf-desc-section { margin-top: 32px; }
+    .wf-desc-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #000; }
+    .wf-desc-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 12px; }
+    .wf-desc-table th, .wf-desc-table td { border: 1px solid #000; padding: 6px 8px; text-align: left; vertical-align: top; }
+    .wf-desc-table th { background: #f0f0f0; font-weight: 700; font-size: 11px; text-transform: uppercase; }
+    .wf-desc-table td:first-child, .wf-desc-table th:first-child { width: 36px; text-align: center; }
+    .wf-desc-table td:nth-child(2) { width: 170px; }
+    .wf-desc-table td:nth-child(3) { width: 110px; }
+    .wf-desc-table td:nth-child(4) { width: 90px; }
+    .wf-desc-screen-header td { background: #000; color: #fff; font-weight: 700; font-size: 12px; }
+  </style>
+</head>
+<body>
+<div class="wf-page" data-device="desktop">
+
+  <div class="wf-header">
+    <div class="wf-feature-label">Feature: learning-dashboard / Wireframe</div>
+    <div class="wf-flow-title">Dashboard tổng quan</div>
+    <div class="wf-flow-meta">3 màn hình · Device: desktop · Tạo: 2026-07-13 · Nguồn: srs/learning-dashboard-userflow.md + ascii-wireframe/dashboard-main.md</div>
+    <div class="wf-flow-desc">Tổng quan tiến độ học: streak, tuần này, điểm TB, khóa đang học; trạng thái rỗng khi chưa ghi danh; chi tiết streak & huy hiệu.</div>
+  </div>
+
+  <div class="wf-rows">
+
+    <!-- Screen 1: dashboard-overview -->
+    <div class="wf-screen" id="s1">
+      <div class="wf-step-badge">1</div>
+      <div class="wf-device-tag">desktop · 1024px</div>
+      <div class="wf-screen-frame">
+        <div class="wf-screen-bar">
+          <div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div>
+          <span class="wf-bar-title">english-ai-demo</span>
+          <span class="wf-topbar-user">Xin chào, Minh · (avatar)</span>
+        </div>
+        <div class="wf-screen-content">
+          <div class="wf-h1">Bảng điều khiển học tập [1]</div>
+          <div class="stat-grid">
+            <div class="stat-card clickable"><div class="lbl">Streak [2]</div><div class="big">12 ngày</div><div class="sub">liên tiếp · kỷ lục 21 ngày</div></div>
+            <div class="stat-card"><div class="lbl">Tuần này [3]</div><div class="big">4/5 buổi</div><div class="sub">+120 từ mới</div></div>
+            <div class="stat-card"><div class="lbl">Điểm trung bình [4]</div><div class="big">8.6 / 10</div><div class="sub">tăng 0.4 tuần này</div></div>
+          </div>
+          <div class="wf-section-head">
+            <span class="wf-section-title">Khóa đang học [5]</span>
+            <a class="wf-link">Xem tất cả khóa [8]</a>
+          </div>
+          <div class="course-row">
+            <span class="cname">Business English B2</span>
+            <span class="progress"><span class="bar"><span style="width:62%"></span></span><span class="pct">62%</span></span>
+            <button class="btn-secondary">Tiếp tục</button>
+          </div>
+          <div class="course-row">
+            <span class="cname">IELTS Speaking</span>
+            <span class="progress"><span class="bar"><span style="width:40%"></span></span><span class="pct">40%</span></span>
+            <button class="btn-secondary">Tiếp tục</button>
+          </div>
+          <div class="suggest"><span>Gợi ý hôm nay [6]: Ôn 15 từ sắp quên</span><button class="btn-primary">Bắt đầu ôn</button></div>
+        </div>
+      </div>
+      <div class="wf-screen-label">dashboard-overview</div>
+    </div>
+
+    <!-- Screen 2: dashboard-empty -->
+    <div class="wf-screen" id="s2">
+      <div class="wf-step-badge">2</div>
+      <div class="wf-device-tag">desktop · 1024px</div>
+      <div class="wf-screen-frame">
+        <div class="wf-screen-bar">
+          <div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div>
+          <span class="wf-bar-title">english-ai-demo</span>
+          <span class="wf-topbar-user">Xin chào, Minh · (avatar)</span>
+        </div>
+        <div class="wf-screen-content">
+          <div class="empty">
+            <div class="img-ph">IMG: sách mở</div>
+            <h2>Bạn chưa ghi danh khóa học nào</h2>
+            <p>Khám phá thư viện khóa để bắt đầu hành trình</p>
+            <button class="btn-primary">Khám phá khóa học [7]</button>
+          </div>
+        </div>
+      </div>
+      <div class="wf-screen-label">dashboard-empty</div>
+    </div>
+
+    <!-- Screen 5: streak-detail -->
+    <div class="wf-screen" id="s3">
+      <div class="wf-step-badge">3</div>
+      <div class="wf-device-tag">desktop · 1024px</div>
+      <div class="wf-screen-frame">
+        <div class="wf-screen-bar">
+          <div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div>
+          <span class="wf-bar-title">Streak &amp; Thành tích</span>
+        </div>
+        <div class="wf-screen-content">
+          <a class="back-nav">← Quay lại [12]</a>
+          <div class="streak-row"><span><strong>Chuỗi hiện tại [9]:</strong> 12 ngày</span><span><strong>Kỷ lục cá nhân:</strong> 21 ngày</span></div>
+          <div>
+            <div class="wf-section-title" style="margin-bottom:8px">Lịch tháng 7 [10]</div>
+            <table class="cal">
+              <tr><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th></tr>
+              <tr><td class="done">✓</td><td class="done">✓</td><td class="done">✓</td><td class="done">✓</td><td class="done">✓</td><td></td><td></td></tr>
+              <tr><td class="done">✓</td><td class="done">✓</td><td class="done">✓</td><td class="done">✓</td><td class="done">✓</td><td class="done">✓</td><td class="done">✓</td></tr>
+              <tr><td class="done">✓</td><td class="done">✓</td><td></td><td></td><td></td><td></td><td></td></tr>
+            </table>
+          </div>
+          <div>
+            <div class="wf-section-title" style="margin-bottom:8px">Huy hiệu [11]</div>
+            <div class="badges">
+              <span class="badge"><span class="on">7 ngày</span></span>
+              <span class="badge"><span class="on">30 từ/tuần</span></span>
+              <span class="badge"><span class="off">100 từ</span></span>
+              <span class="badge"><span class="off">30 ngày</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wf-screen-label">streak-detail</div>
+    </div>
+
+  </div>
+
+  <div class="wf-desc-section">
+    <div class="wf-desc-title">Mô tả màn hình</div>
+    <table class="wf-desc-table">
+      <thead><tr><th>#</th><th>Items</th><th>Control type</th><th>Data type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr class="wf-desc-screen-header"><td colspan="5">Screen 1: dashboard-overview — Bảng điều khiển học tập</td></tr>
+        <tr><td>1</td><td>Tiêu đề dashboard</td><td>Label</td><td>ReadOnly</td><td>• "Bảng điều khiển học tập" + lời chào có tên user.</td></tr>
+        <tr><td>2</td><td>Thẻ Streak</td><td>Label</td><td>ReadOnly</td><td>• Số ngày liên tiếp + kỷ lục.<br>• Click cả thẻ → streak-detail [9].</td></tr>
+        <tr><td>3</td><td>Thẻ Tuần này</td><td>Label</td><td>ReadOnly</td><td>• Buổi đã hoàn thành / mục tiêu + số từ mới.</td></tr>
+        <tr><td>4</td><td>Thẻ Điểm TB</td><td>Label</td><td>ReadOnly</td><td>• Điểm TB + delta so tuần trước.</td></tr>
+        <tr><td>5</td><td>Khóa đang học</td><td>Label</td><td>ReadOnly</td><td>• Mỗi dòng: tên + thanh tiến độ + nút Tiếp tục.<br>• Click dòng → course-detail.<br>• <strong>Empty</strong>: 0 khóa → chuyển màn dashboard-empty.</td></tr>
+        <tr><td>6</td><td>Gợi ý hôm nay</td><td>Button</td><td>Click</td><td>• CTA ôn từ sắp quên → mở phiên ôn (ngoài scope).</td></tr>
+        <tr><td>8</td><td>Xem tất cả khóa</td><td>Link</td><td>Click</td><td>• <strong>Navigate</strong> sang course-list.</td></tr>
+        <tr class="wf-desc-screen-header"><td colspan="5">Screen 2: dashboard-empty — Chưa ghi danh khóa nào</td></tr>
+        <tr><td>1</td><td>Minh họa rỗng</td><td>Image</td><td>ReadOnly</td><td>• Placeholder ảnh (token chữ, không emoji).</td></tr>
+        <tr><td>2</td><td>Thông điệp rỗng</td><td>Label</td><td>ReadOnly</td><td>• "Bạn chưa ghi danh khóa học nào" + câu dẫn.</td></tr>
+        <tr><td>7</td><td>Khám phá khóa học</td><td>Button</td><td>Click</td><td>• <strong>Navigate</strong> sang course-list. CTA duy nhất ở trạng thái rỗng.</td></tr>
+        <tr class="wf-desc-screen-header"><td colspan="5">Screen 3: streak-detail — Streak &amp; Thành tích</td></tr>
+        <tr><td>9</td><td>Chuỗi &amp; kỷ lục</td><td>Label</td><td>ReadOnly</td><td>• Ngày liên tiếp hiện tại + kỷ lục cá nhân.</td></tr>
+        <tr><td>10</td><td>Lịch streak</td><td>Label</td><td>ReadOnly</td><td>• Ô tô đậm = ngày đã học, ô trống = chưa. Theo tuần.</td></tr>
+        <tr><td>11</td><td>Huy hiệu</td><td>Label</td><td>ReadOnly</td><td>• <code>(*)</code> = đã đạt, <code>( )</code> = chưa. Mỗi mốc 1 huy hiệu.</td></tr>
+        <tr><td>12</td><td>Quay lại</td><td>Link</td><td>Click</td><td>• <strong>Navigate</strong> về dashboard-overview.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="wf-footer">
+    <span>learning-dashboard / dashboard-main</span>
+    <span>Tạo bởi /wireframe-html · 2026-07-13</span>
+  </div>
+
+</div>
+</body>
+</html>
